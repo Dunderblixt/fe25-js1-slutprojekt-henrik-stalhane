@@ -18,6 +18,8 @@ document.querySelector('form').addEventListener('submit', function(event) {
        const container = document.getElementById('ResultContainer');
         container.style.display = 'flex';
         const resultsDiv = document.getElementById('searchResultsMovie');
+        const navigation = document.getElementById('navigation');
+        navigation.style.display = 'block';
         resultsDiv.innerHTML = '';
         data.results.forEach(movie => {
             const movieDiv = document.createElement('div');
@@ -41,11 +43,6 @@ document.querySelector('form').addEventListener('submit', function(event) {
             
 
             resultsDiv.appendChild(movieDiv);
-            // use poster_path to show images
-          
-
-
-
         });
         
     })

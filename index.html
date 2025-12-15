@@ -7,24 +7,35 @@
 <!--     <script src="script.js" defer></script> -->
     <script src="./JS/search.js" defer></script>
     <script src="./JS/buttons.js" defer></script>
+    <script type="module" src="./JS/animations.js"></script>
     <link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
-    <div class>
+        <div class="header"> 
         <h1>Movie Search!</h1>
+        <div><img ></div>
         <h2>Find your favorite movies, TV-shows and actors!</h2>
+        
         <form>
             <input type="text" placeholder="search..." id="searchInput">
             <button type="submit">Search</button>
             
         </form>
+        <div class="buttons">
         <button id="PopMovies">Get Popular Movies</button>
         <button id="TopTV">Get Popular TV-Shows</button>
         <button id="TopMovies">Get Top Ranked Movies</button>
+        </div>
     </div>
     <div id="ResultContainer">
-    <h1>Search Results:</h1>
+    <h1>Results:</h1>
+    <div id="navigation">
+    <a href="#searchResultsMovie">Go to Movies</a>
+    <a href="#searchResultsTV">Go to TV-Shows</a>
+    <a href="#searchResultsPeople">Go to People</a>
+    </div>
     <h3>Movies:</h3>
+    <div class="box">
     <div id="searchResultsMovie" class="resultbox">
     </div>
     <h3>TV-Shows:</h3>

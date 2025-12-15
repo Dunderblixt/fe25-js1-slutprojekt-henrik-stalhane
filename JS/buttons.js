@@ -1,5 +1,4 @@
-// use the buttons to fetch popular movies, tv-shows and top ranked movies
-// add a separate event listener for each button
+
 document.getElementById('PopMovies').addEventListener('click', function() {
     const options = {
         method: 'GET',
@@ -14,6 +13,8 @@ document.getElementById('PopMovies').addEventListener('click', function() {
             const container = document.getElementById('ResultContainer');
             container.style.display = 'flex';
             const resultsDiv = document.getElementById('searchResultsMovie');
+            const navigation = document.getElementById('navigation');
+            navigation.style.display = 'none';
             resultsDiv.innerHTML = '';
             data.results.forEach(movie => {
                 const movieDiv = document.createElement('div');
@@ -53,6 +54,8 @@ document.getElementById('TopTV').addEventListener('click', function() {
             container.style.display = 'flex';
             const resultsDiv = document.getElementById('searchResultsMovie');
             resultsDiv.innerHTML = '';
+            const navigation = document.getElementById('navigation');
+            navigation.style.display = 'none';
             data.results.forEach(tvShow => {
                 const tvDiv = document.createElement('div');
                 tvDiv.classList.add('result-card');
@@ -91,6 +94,8 @@ document.getElementById('TopMovies').addEventListener('click', function() {
             container.style.display = 'flex';
             const resultsDiv = document.getElementById('searchResultsMovie');
             resultsDiv.innerHTML = '';
+            const navigation = document.getElementById('navigation');
+            navigation.style.display = 'none';
             data.results.forEach(movie => {
                 const movieDiv = document.createElement('div');
                 movieDiv.classList.add('result-card');
