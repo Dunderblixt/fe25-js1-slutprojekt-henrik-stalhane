@@ -34,7 +34,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
             const img = document.createElement('img');
             img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
             img.alt = movie.title;
-            img.width = 400;
+            img.width = 300;
             const title = document.createElement('p');
             const overview = document.createElement('p');
             const releaseDate = document.createElement('p');
@@ -79,7 +79,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
                         const img = document.createElement('img');
             img.src = `https://image.tmdb.org/t/p/w500${person.profile_path}`;
             img.alt = person.name;
-            img.width = 400;
+            img.width = 300;
             movieDiv.classList.add('result-card');
             name.textContent = `${person.name}`;
             department.textContent = `Department: ${person.known_for_department}`;
@@ -127,6 +127,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
             img.src = `https://image.tmdb.org/t/p/w500${tvShow.poster_path}`;
             img.alt = tvShow.name;
             img.width = 400;
+          
             const title = document.createElement('p');
             const overview = document.createElement('p');
             const firstAirDate = document.createElement('p');

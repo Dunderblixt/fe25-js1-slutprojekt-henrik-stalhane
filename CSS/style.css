@@ -26,6 +26,9 @@
     padding: 10px;
     margin-bottom: 10px;
     width: 420px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }
 .header {
     border: solid black 2px;
@@ -45,4 +48,11 @@ h1 {
 h3 {
     font-size: 24px;
     margin: 10px 0;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 640px) {
+    .result-card {
+        width: 100%;
+    }
 }
