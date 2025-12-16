@@ -34,7 +34,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
             const img = document.createElement('img');
             img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
             img.alt = movie.title;
-            img.width = 300;
+            img.width = 100;
             const title = document.createElement('p');
             const overview = document.createElement('p');
             const releaseDate = document.createElement('p');
@@ -79,7 +79,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
                         const img = document.createElement('img');
             img.src = `https://image.tmdb.org/t/p/w500${person.profile_path}`;
             img.alt = person.name;
-            img.width = 300;
+            img.width = 100;
             movieDiv.classList.add('result-card');
             name.textContent = `${person.name}`;
             department.textContent = `Department: ${person.known_for_department}`;
@@ -89,9 +89,6 @@ document.querySelector('form').addEventListener('submit', function(event) {
             movieDiv.appendChild(department);
             movieDiv.appendChild(knownFor);     
             resultsDiv.appendChild(movieDiv);
-            if (data.results.length === 0) {
-                resultsDiv.innerHTML = '<p>No results found.</p>';
-            }
         });
     })
 
@@ -125,9 +122,8 @@ document.querySelector('form').addEventListener('submit', function(event) {
           tvDiv.classList.add('result-card');
             const img = document.createElement('img');
             img.src = `https://image.tmdb.org/t/p/w500${tvShow.poster_path}`;
-            img.alt = tvShow.name;
-            img.width = 400;
-          
+            img.alt = tvShow.name;    
+            img.width = 100;     
             const title = document.createElement('p');
             const overview = document.createElement('p');
             const firstAirDate = document.createElement('p');

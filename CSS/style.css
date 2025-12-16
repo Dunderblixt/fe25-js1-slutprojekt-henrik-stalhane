@@ -8,6 +8,7 @@
     justify-content: center;
     align-items: center;
     background-color: #6aa18c;
+    width:90%;
 }
 #ResultContainer {
     border: solid black 2px;
@@ -19,12 +20,24 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+    width:90%;
+    padding:20px;
     
 }
-
+.navigation {
+    border: solid black 2px;
+    background-color: #5a5788;
+    text-align: center;
+    margin: 20px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
 .result-card {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 20px;
     margin: 10px;
     width: 420px;
     display:flex;
@@ -46,12 +59,9 @@ h1 {
     font-size: 36px;
     margin: 0;
 }
-h3 {
-    font-size: 24px;
-    margin: 10px 0;
-}
+
 .result-image {
-    width: 300px;
+    width: 90%;
     height: auto;
     margin-bottom: 10px;
 }
@@ -67,9 +77,9 @@ h3 {
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 640px) {
     .result-card {
-        width: 100%;
+        width: 90%;
     }
     .result-image {
-        width: 100%;
+        width: 50%;
     }
 }
