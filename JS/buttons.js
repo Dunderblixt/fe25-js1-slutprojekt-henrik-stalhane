@@ -26,7 +26,7 @@ document.getElementById('PopMovies').addEventListener('click', function() {
                 const img = document.createElement('img');
                 img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
                 img.alt = movie.title;
-                img.width = 400;
+                img.width = 200;
                 const title = document.createElement('p');
                 const overview = document.createElement('p');
                 const releaseDate = document.createElement('p');
@@ -70,7 +70,7 @@ document.getElementById('TopTV').addEventListener('click', function() {
                 const img = document.createElement('img');
                 img.src = `https://image.tmdb.org/t/p/w500${tvShow.poster_path}`;
                 img.alt = tvShow.name;
-                img.width = 400;
+                img.width = 200;
                 const title = document.createElement('p');
                 const overview = document.createElement('p');
                 const firstAirDate = document.createElement('p');
@@ -114,7 +114,7 @@ document.getElementById('TopMovies').addEventListener('click', function() {
                 const img = document.createElement('img');
                 img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
                 img.alt = movie.title;
-                img.width = 400;
+                img.width = 200;
                 const title = document.createElement('p');
                 const overview = document.createElement('p');
                 const releaseDate = document.createElement('p');
