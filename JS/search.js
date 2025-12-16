@@ -15,13 +15,20 @@ document.querySelector('form').addEventListener('submit', function(event) {
     fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`, options)
     .then(res => res.json())
     .then(data => {     
+      
        const container = document.getElementById('ResultContainer');
         container.style.display = 'flex';
         const resultsDiv = document.getElementById('searchResultsMovie');
         const navigation = document.getElementById('navigation');
         navigation.style.display = 'block';
         resultsDiv.innerHTML = '';
+        if (data.results.length === 0) {
+                resultsDiv.innerHTML = '<p>No results found.</p>';
+            } 
         data.results.forEach(movie => {
+                if (data.results.length === 0) {
+                movieDiv.innerHTML = '<p>No results found.</p>';
+            }
             const movieDiv = document.createElement('div');
             movieDiv.classList.add('result-card');
             const img = document.createElement('img');
@@ -40,9 +47,9 @@ document.querySelector('form').addEventListener('submit', function(event) {
             movieDiv.appendChild(overview);
             movieDiv.appendChild(releaseDate);
             resultsDiv.appendChild(movieDiv);
-            
-
             resultsDiv.appendChild(movieDiv);
+            console.log(data.results);
+            
         });
         
     })
@@ -61,6 +68,9 @@ document.querySelector('form').addEventListener('submit', function(event) {
     .then(data => { 
         const resultsDiv = document.getElementById('searchResultsPeople');
         resultsDiv.innerHTML = '';
+                if (data.results.length === 0) {
+                resultsDiv.innerHTML = '<p>No results found.</p>';
+            } 
         data.results.forEach(person => {
           const movieDiv = document.createElement('div');
             const name = document.createElement('p');
@@ -79,7 +89,9 @@ document.querySelector('form').addEventListener('submit', function(event) {
             movieDiv.appendChild(department);
             movieDiv.appendChild(knownFor);     
             resultsDiv.appendChild(movieDiv);
-            console.log(person);
+            if (data.results.length === 0) {
+                resultsDiv.innerHTML = '<p>No results found.</p>';
+            }
         });
     })
 
@@ -105,6 +117,9 @@ document.querySelector('form').addEventListener('submit', function(event) {
     .then(data => {
         const resultsDiv = document.getElementById('searchResultsTV');
         resultsDiv.innerHTML = '';
+                if (data.results.length === 0) {
+                resultsDiv.innerHTML = '<p>No results found.</p>';
+            } 
         data.results.forEach(tvShow => {
           const tvDiv = document.createElement('div');  
           tvDiv.classList.add('result-card');
@@ -123,6 +138,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
             tvDiv.appendChild(overview);
             tvDiv.appendChild(firstAirDate);
             resultsDiv.appendChild(tvDiv);
+            
         });
     })
     .catch(err => console.error(err));
