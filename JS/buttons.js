@@ -15,6 +15,10 @@ document.getElementById('PopMovies').addEventListener('click', function() {
             const resultsDiv = document.getElementById('searchResultsMovie');
             const navigation = document.getElementById('navigation');
             navigation.style.display = 'none';
+            const hideTVResults = document.getElementById('searchResultsTV');
+            hideTVResults.innerHTML = '';
+            const hidePeopleResults = document.getElementById('searchResultsPeople');
+            hidePeopleResults.innerHTML = '';
             resultsDiv.innerHTML = '';
             data.results.forEach(movie => {
                 const movieDiv = document.createElement('div');
@@ -52,8 +56,12 @@ document.getElementById('TopTV').addEventListener('click', function() {
         .then(data => {
             const container = document.getElementById('ResultContainer');
             container.style.display = 'flex';
-            const resultsDiv = document.getElementById('searchResultsMovie');
+            const resultsDiv = document.getElementById('searchResultsTV');
             resultsDiv.innerHTML = '';
+            const hideMovieResults = document.getElementById('searchResultsMovie');
+            hideMovieResults.innerHTML = '';
+            const hidePeopleResults = document.getElementById('searchResultsPeople');
+            hidePeopleResults.innerHTML = '';
             const navigation = document.getElementById('navigation');
             navigation.style.display = 'none';
             data.results.forEach(tvShow => {
@@ -96,6 +104,10 @@ document.getElementById('TopMovies').addEventListener('click', function() {
             resultsDiv.innerHTML = '';
             const navigation = document.getElementById('navigation');
             navigation.style.display = 'none';
+            const hideTVResults = document.getElementById('searchResultsTV');
+            hideTVResults.innerHTML = '';
+            const hidePeopleResults = document.getElementById('searchResultsPeople');
+            hidePeopleResults.innerHTML = '';
             data.results.forEach(movie => {
                 const movieDiv = document.createElement('div');
                 movieDiv.classList.add('result-card');

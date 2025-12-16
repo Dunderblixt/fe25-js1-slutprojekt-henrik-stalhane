@@ -7,12 +7,12 @@
 <!--     <script src="script.js" defer></script> -->
     <script src="./JS/search.js" defer></script>
     <script src="./JS/buttons.js" defer></script>
-    <script type="module" src="./JS/animations.js"></script>
+    <script src="./JS/animations.js" defer></script>
     <link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
         <div class="header"> 
-        <h1>Movie Search!</h1>
+        <h1 class="Rubrik">Movie Search!</h1>
         <div><img ></div>
         <h2>Find your favorite movies, TV-shows and actors!</h2>
         
@@ -22,8 +22,8 @@
             
         </form>
         <div class="buttons">
-        <button id="PopMovies">Get Popular Movies</button>
-        <button id="TopTV">Get Popular TV-Shows</button>
+        <button id="PopMovies">Get Most Popular Movies</button>
+        <button id="TopTV">Get Most Popular TV-Shows</button>
         <button id="TopMovies">Get Top Ranked Movies</button>
         </div>
     </div>
@@ -34,14 +34,21 @@
     <a href="#searchResultsTV">Go to TV-Shows</a>
     <a href="#searchResultsPeople">Go to People</a>
     </div>
-    <h3>Movies:</h3>
+    
     <div class="box">
+          <h3>Movies:</h3>
     <div id="searchResultsMovie" class="resultbox">
+      
     </div>
     <h3>TV-Shows:</h3>
-       <div id="searchResultsTV" class="resultbox"></div>
-    <h3>People:</h3>
-    <div id="searchResultsPeople" class="resultbox"></div>
+       <div id="searchResultsTV" class="resultbox">
+        <h3>TV-Shows:</h3>
+       </div>
+       
+    
+    <div id="searchResultsPeople" class="resultbox">
+        <h3>People:</h3>
+    </div>
     </div>
 </body>
 </html>

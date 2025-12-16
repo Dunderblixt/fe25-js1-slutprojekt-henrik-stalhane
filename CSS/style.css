@@ -7,8 +7,11 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    background-color: #6aa18c;
 }
 #ResultContainer {
+    border: solid black 2px;
+    background-color: #967878;
     font-family: Arial, sans-serif;
     margin-top: 20px;
     display:none;
@@ -26,6 +29,7 @@
 }
 .header {
     border: solid black 2px;
+    background-color: #5a5788;
     text-align: center;
     margin: 20px;
     display:flex;
