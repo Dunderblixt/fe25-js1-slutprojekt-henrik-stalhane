@@ -121,7 +121,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
   event.preventDefault();
   const query = this.querySelector('input[type="text"]').value; 
   //
-    fetch(`https://api.themoviaedb.org/3/search/person?query=${encodeURIComponent(query)}`, options).then( res => {
+    fetch(`https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(query)}`, options).then( res => {
     
     if (res.status < 300 && res.status >=200) {
             return res.json();
@@ -257,4 +257,5 @@ document.querySelector('form').addEventListener('submit', function(event) {
         console.error(err);
     });
 });
+
 }
