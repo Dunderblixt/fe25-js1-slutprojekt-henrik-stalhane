@@ -1,4 +1,4 @@
- //  define the searchMovie function
+
  export async function searchMovie() {
     const options = {
   method: 'GET',
