@@ -28,7 +28,7 @@
     event.preventDefault();
   const query = this.querySelector('input[type="text"]').value; 
      fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`, options).then( res => {
-    
+    // check the response status
     if (res.status < 300 && res.status >=200) {
             return res.json();
         }
@@ -47,13 +47,7 @@
         const navigation = document.getElementById('navigation');
         navigation.style.display = 'block';
         resultsDiv.innerHTML = '';
-        if (res.status >= 300 || res.status <200) {
-          resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
-        }
-/*         else if (data.results.length === 0) {
-                resultsDiv.innerHTML = '<p>No results found.</p>';
-            }  */
-          
+                  
         data.results.forEach(movie => {
                 if (data.results.length === 0) {
                 movieDiv.innerHTML = '<p>No results found.</p>';
@@ -85,7 +79,6 @@
         const resultsDiv = document.getElementById('searchResultsMovie');
         resultsDiv.innerHTML = '';
         const errorDiv = document.createElement('div');
-
         if (err.message.includes('404' )) {
             errorDiv.textContent = '404 Error: Resource not found';
         } else if (err.message.includes('HTTP error')) {
