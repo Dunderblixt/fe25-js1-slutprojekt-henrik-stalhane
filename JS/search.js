@@ -1,21 +1,42 @@
-const options = {
+ //  define the searchMovie function
+ export async function searchMovie() {
+    const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzJhYmYxYTJmZmY1MTNhNWZlYmEwZGU1ZjdhZGRlMyIsIm5iZiI6MTc2NTM2NDE3NS4xNjQsInN1YiI6IjY5Mzk1MWNmNDU5NjE4NTBiNDdmY2JjMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rJHrV_LEJJ8iY3SYJYjjQbvpUcJr2RRYHRutP3JaxJA'
-  }
-};
-fetch('https://api.themoviedb.org/3/authentication', options)
-  .then(res => res.json())
-  .then(res => console.log(res))
-  .catch(err => console.error(err));
-document.querySelector('form').addEventListener('submit', function(event) {
-  event.preventDefault();
+     }
+    };
+    // test the authentication first
+ fetch('https://api.themoviedb.org/3/authentication', options).then( res => {
+    
+    if (res.status < 300 && res.status >=200) {
+            return res.json();
+        }
+        else {
+            const resultsDiv = document.getElementById('ResultContainer');
+            resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+    })
+
+    // fetch movie data based on user input
+    document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault();
   const query = this.querySelector('input[type="text"]').value; 
-    fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`, options)
-    .then(res => res.json())
+     fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`, options).then( res => {
+    
+    if (res.status < 300 && res.status >=200) {
+            return res.json();
+        }
+        else {
+            const resultsDiv = document.getElementById('searchResultsMovie');
+            resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+    })
+    // make results appear depending on data received
     .then(data => {     
-      
        const container = document.getElementById('ResultContainer');
         container.style.display = 'flex';
         const resultsDiv = document.getElementById('searchResultsMovie');
@@ -25,6 +46,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
         if (data.results.length === 0) {
                 resultsDiv.innerHTML = '<p>No results found.</p>';
             } 
+          
         data.results.forEach(movie => {
                 if (data.results.length === 0) {
                 movieDiv.innerHTML = '<p>No results found.</p>';
@@ -38,7 +60,6 @@ document.querySelector('form').addEventListener('submit', function(event) {
             const title = document.createElement('p');
             const overview = document.createElement('p');
             const releaseDate = document.createElement('p');
-
             title.textContent = `${movie.title}`;
             overview.textContent = `${movie.overview}`;
             releaseDate.textContent = `Release Date: ${movie.release_date}`;
@@ -48,23 +69,70 @@ document.querySelector('form').addEventListener('submit', function(event) {
             movieDiv.appendChild(releaseDate);
             resultsDiv.appendChild(movieDiv);
             resultsDiv.appendChild(movieDiv);
-            console.log(data.results);
+            console.log(data.results);     
+        });   
+    })  
+
+    // catch errors and display messages
+    .catch(err => {
+        const resultsDiv = document.getElementById('searchResultsMovie');
+        resultsDiv.innerHTML = '';
+        const errorDiv = document.createElement('div');
+
+        if (err.message.includes('404' )) {
+            errorDiv.textContent = '404 Error: Resource not found';
+        } else if (err.message.includes('HTTP error')) {
+            errorDiv.textContent = `Error: ${err.message}`;
             
-        });
-        
-    })
-    
-    .catch(err => console.error(err));
+        }else if (err.message.includes('fetch failed')) {
+            errorDiv.textContent = `Error: fetch failed - ${err.message}`;
+        } 
+        else {
+            errorDiv.textContent = 'No Results Found';
+        }
+        resultsDiv.appendChild(errorDiv);
+        console.error(err);
+    });
 });
-fetch('https://api.themoviedb.org/3/authentication', options)
-  .then(res => res.json())
-  .then(res => console.log(res))
-  .catch(err => console.error(err));
+}
+// define the searchTV function. It is similar to searchMovie but for TV shows
+export function searchTV() {
+    const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzJhYmYxYTJmZmY1MTNhNWZlYmEwZGU1ZjdhZGRlMyIsIm5iZiI6MTc2NTM2NDE3NS4xNjQsInN1YiI6IjY5Mzk1MWNmNDU5NjE4NTBiNDdmY2JjMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rJHrV_LEJJ8iY3SYJYjjQbvpUcJr2RRYHRutP3JaxJA'
+  }
+};
+// test the authentication first
+fetch('https://api.themoviedb.org/3/authentication', options).then( res => {
+    
+    if (res.status < 300 && res.status >=200) {
+            return res.json();
+        }
+        else {
+            const resultsDiv = document.getElementById('ResultContainer');
+            resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+    })
+// fetch TV data based on user input
 document.querySelector('form').addEventListener('submit', function(event) {
   event.preventDefault();
   const query = this.querySelector('input[type="text"]').value; 
-    fetch(`https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(query)}`, options)
-    .then(res => res.json())
+  //
+    fetch(`https://api.themoviaedb.org/3/search/person?query=${encodeURIComponent(query)}`, options).then( res => {
+    
+    if (res.status < 300 && res.status >=200) {
+            return res.json();
+        }
+        else {
+            const resultsDiv = document.getElementById('ResultContainer');
+            resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+    })
+    // make results appear
     .then(data => { 
         const resultsDiv = document.getElementById('searchResultsPeople');
         resultsDiv.innerHTML = '';
@@ -91,26 +159,59 @@ document.querySelector('form').addEventListener('submit', function(event) {
             resultsDiv.appendChild(movieDiv);
         });
     })
-
-
+    // catch errors and display messages
     .catch(err => {
+        const resultsDiv = document.getElementById('searchResultsPeople');
+        resultsDiv.innerHTML = '';
+        const errorDiv = document.createElement('div');
+        if (err.message.includes('404')) {
+            errorDiv.textContent = '404 Error: Resource not found';
+        } else if (err.message.includes('HTTP error')) {
+            errorDiv.textContent = `Error: ${err.message}`;
+            
+        }else if (err.message.includes('fetch failed')) {
+            errorDiv.textContent = `Fetch Error: ${err.message}`;
+            
+        }
+         else {
+            errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
+        }
+        resultsDiv.appendChild(errorDiv);
         console.error(err);
     });
-        
-        
-
 });
+}
 
-// TV Show Search
+// define the searchPerson function. It is also similar to the other two functions
+export function searchPerson() {
+    const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzJhYmYxYTJmZmY1MTNhNWZlYmEwZGU1ZjdhZGRlMyIsIm5iZiI6MTc2NTM2NDE3NS4xNjQsInN1YiI6IjY5Mzk1MWNmNDU5NjE4NTBiNDdmY2JjMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rJHrV_LEJJ8iY3SYJYjjQbvpUcJr2RRYHRutP3JaxJA'
+  }
+};
+// test the authentication first
 fetch('https://api.themoviedb.org/3/authentication', options)
   .then(res => res.json())
     .then(res => console.log(res))
     .catch(err => console.error(err));
+    // fetch person data based on user input
 document.querySelector('form').addEventListener('submit', function(event) {
   event.preventDefault();
   const query = this.querySelector('input[type="text"]').value;
-    fetch(`https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(query)}`, options)
-    .then(res => res.json())
+    fetch(`https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(query)}`, options).then( res => {
+    
+    if (res.status < 300 && res.status >=200) {
+            return res.json();
+        }
+        else {
+            const resultsDiv = document.getElementById('searchResultsMovie');
+            resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+    })
+    // make results appear
     .then(data => {
         const resultsDiv = document.getElementById('searchResultsTV');
         resultsDiv.innerHTML = '';
@@ -138,7 +239,22 @@ document.querySelector('form').addEventListener('submit', function(event) {
             
         });
     })
-    .catch(err => console.error(err));
+    // catch errors and display messages
+    .catch(err => {
+        const resultsDiv = document.getElementById('searchResultsTV');
+        resultsDiv.innerHTML = '';
+        const errorDiv = document.createElement('div');
+        errorDiv.style.color = 'red';
+        errorDiv.style.padding = '20px';
+        if (err.message.includes('404')) {
+            errorDiv.textContent = '404 Error: Resource not found';
+        } else if (err.message.includes('HTTP error')) {
+            errorDiv.textContent = `Error: ${err.message}`;
+        } else {
+            errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
+        }
+        resultsDiv.appendChild(errorDiv);
+        console.error(err);
+    });
 });
-
-// make
+}
