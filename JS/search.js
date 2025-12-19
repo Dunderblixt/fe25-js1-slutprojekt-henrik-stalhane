@@ -1,4 +1,4 @@
-
+ //  define the searchMovie function
  export async function searchMovie() {
     const options = {
   method: 'GET',
@@ -7,15 +7,16 @@
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzJhYmYxYTJmZmY1MTNhNWZlYmEwZGU1ZjdhZGRlMyIsIm5iZiI6MTc2NTM2NDE3NS4xNjQsInN1YiI6IjY5Mzk1MWNmNDU5NjE4NTBiNDdmY2JjMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rJHrV_LEJJ8iY3SYJYjjQbvpUcJr2RRYHRutP3JaxJA'
      }
     };
+                const resultsDiv = document.getElementById('ResultContainer');
     // test the authentication first
  fetch('https://api.themoviedb.org/3/authentication', options).then( res => {
     
     if (res.status < 300 && res.status >=200) {
             return res.json();
-
         }
         else {
-            
+            const resultsDiv = document.getElementById('ResultContainer');
+            resultsDiv.display = 'flex';
             resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
             throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -23,18 +24,16 @@
 
     // fetch movie data based on user input
     document.querySelector('form').addEventListener('submit', function(event) {
-      const resultsContainer = document.getElementById('ResultContainer');
-            resultsContainer.style.display = 'flex';
     event.preventDefault();
+    
   const query = this.querySelector('input[type="text"]').value; 
      fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`, options).then( res => {
-    // check the response status
     if (res.status < 300 && res.status >=200) {
             return res.json();
         }
         else {
-            const resultsDiv = document.getElementById('resultsContainer');
-              resultsDiv.display = 'flex';
+            const resultsDiv = document.getElementById('ResultContainer');
+              resultsDiv.style.display = 'flex';
             resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
             throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -47,11 +46,15 @@
         const navigation = document.getElementById('navigation');
         navigation.style.display = 'block';
         resultsDiv.innerHTML = '';
-                  
+        if (data.results.length === 0) {
+                resultsDiv.innerHTML = '<p>No results found.</p>';
+            } 
+          
         data.results.forEach(movie => {
-                if (data.results.length === 0) {
+        if (data.results.length === 0) {
                 movieDiv.innerHTML = '<p>No results found.</p>';
             }
+
             const movieDiv = document.createElement('div');
             movieDiv.classList.add('result-card');
             const img = document.createElement('img');
@@ -71,14 +74,16 @@
             resultsDiv.appendChild(movieDiv);
             resultsDiv.appendChild(movieDiv);
             console.log(data.results);     
-        });   
-    })  
+        });  
 
+    }
+  )   
     // catch errors and display messages
     .catch(err => {
-        const resultsDiv = document.getElementById('searchResultsMovie');
+        const resultsDiv = document.getElementById('ResultContainer');
         resultsDiv.innerHTML = '';
         const errorDiv = document.createElement('div');
+      resultsDiv.style.display = 'flex';
         if (err.message.includes('404' )) {
             errorDiv.textContent = '404 Error: Resource not found';
         } else if (err.message.includes('HTTP error')) {
@@ -88,9 +93,9 @@
             errorDiv.textContent = `Error: fetch failed - ${err.message}`;
         } 
         else {
-            errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
+            errorDiv.textContent = 'Incorrect input or Network error: Unable to fetch data. Please check your connection and try again.';
         }
-         resultsDiv.style.display = 'flex';
+         
         resultsDiv.appendChild(errorDiv);
         console.error(err);
     });

@@ -104,7 +104,7 @@ document.getElementById('TopTV').addEventListener('click', function() {
             });
         })
         .catch(err => {
-            const movieDiv = document.getElementById('searchResultsMovie');
+            const movieDiv = document.getElementById('ResultContainer');
             movieDiv.innerHTML = '';
             const resultsDiv = document.getElementById('searchResultsTV');
             resultsDiv.innerHTML = '';

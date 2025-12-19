@@ -1,4 +1,6 @@
 
+
+import { searchMovie, searchTV, searchPerson } from './search.js';
 const options = {
   method: 'GET',
   headers: {
@@ -6,7 +8,7 @@ const options = {
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzJhYmYxYTJmZmY1MTNhNWZlYmEwZGU1ZjdhZGRlMyIsIm5iZiI6MTc2NTM2NDE3NS4xNjQsInN1YiI6IjY5Mzk1MWNmNDU5NjE4NTBiNDdmY2JjMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rJHrV_LEJJ8iY3SYJYjjQbvpUcJr2RRYHRutP3JaxJA'
   }
 };
-import { searchMovie, searchTV, searchPerson } from './search.js';
+document.getElementById('SearchButton').addEventListener('click', function() {
 try {searchMovie();
   searchMovie();
 } catch (error) {
@@ -26,6 +28,5 @@ try {searchPerson();
   console.error('Error initializing searchPerson:', error);
 }
 
-
-
+});
 
