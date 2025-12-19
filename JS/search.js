@@ -12,9 +12,10 @@
     
     if (res.status < 300 && res.status >=200) {
             return res.json();
+
         }
         else {
-            const resultsDiv = document.getElementById('ResultContainer');
+            
             resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
             throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -22,6 +23,8 @@
 
     // fetch movie data based on user input
     document.querySelector('form').addEventListener('submit', function(event) {
+      const resultsContainer = document.getElementById('ResultContainer');
+            resultsContainer.style.display = 'flex';
     event.preventDefault();
   const query = this.querySelector('input[type="text"]').value; 
      fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`, options).then( res => {
@@ -30,7 +33,8 @@
             return res.json();
         }
         else {
-            const resultsDiv = document.getElementById('searchResultsMovie');
+            const resultsDiv = document.getElementById('resultsContainer');
+              resultsDiv.display = 'flex';
             resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
             throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -43,9 +47,12 @@
         const navigation = document.getElementById('navigation');
         navigation.style.display = 'block';
         resultsDiv.innerHTML = '';
-        if (data.results.length === 0) {
+        if (res.status >= 300 || res.status <200) {
+          resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
+        }
+/*         else if (data.results.length === 0) {
                 resultsDiv.innerHTML = '<p>No results found.</p>';
-            } 
+            }  */
           
         data.results.forEach(movie => {
                 if (data.results.length === 0) {
@@ -84,12 +91,13 @@
         } else if (err.message.includes('HTTP error')) {
             errorDiv.textContent = `Error: ${err.message}`;
             
-        }else if (err.message.includes('fetch failed')) {
+        }else if (err.message.includes('failed')) {
             errorDiv.textContent = `Error: fetch failed - ${err.message}`;
         } 
         else {
-            errorDiv.textContent = 'No Results Found';
+            errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
         }
+         resultsDiv.style.display = 'flex';
         resultsDiv.appendChild(errorDiv);
         console.error(err);
     });
@@ -176,6 +184,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
          else {
             errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
         }
+        resultsDiv.style.display = 'flex';
         resultsDiv.appendChild(errorDiv);
         console.error(err);
     });
@@ -253,9 +262,9 @@ document.querySelector('form').addEventListener('submit', function(event) {
         } else {
             errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
         }
+        resultsDiv.style.display = 'flex';
         resultsDiv.appendChild(errorDiv);
         console.error(err);
     });
 });
-
 }
