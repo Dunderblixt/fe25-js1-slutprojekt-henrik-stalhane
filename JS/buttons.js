@@ -14,6 +14,7 @@ document.getElementById('PopMovies').addEventListener('click', function() {
         }
         else {
             const resultsDiv = document.getElementById('searchResultsMovie');
+            resultsDiv.style.display = 'flex';
             resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
             throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -50,14 +51,11 @@ document.getElementById('PopMovies').addEventListener('click', function() {
         // error handling
         .catch(err => {
                  const movieDiv = document.getElementById('ResultContainer');
+                 movieDiv.style.display = 'flex';
             movieDiv.innerHTML = '';
-            const resultsDiv = document.getElementById('searchResultsTV');
-            resultsDiv.innerHTML = '';
             const errorDiv = document.createElement('div');
-            errorDiv.style.color = 'red';
-            errorDiv.style.padding = '20px';
             errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
-            resultsDiv.appendChild(errorDiv);
+            movieDiv.appendChild(errorDiv);
             console.error(err);
         });
 
@@ -113,15 +111,12 @@ document.getElementById('TopTV').addEventListener('click', function() {
         })
         // error handling
         .catch(err => {
-            const movieDiv = document.getElementById('ResultContainer');
+                 const movieDiv = document.getElementById('ResultContainer');
+                 movieDiv.style.display = 'flex';
             movieDiv.innerHTML = '';
-            const resultsDiv = document.getElementById('searchResultsTV');
-            resultsDiv.innerHTML = '';
             const errorDiv = document.createElement('div');
-            errorDiv.style.color = 'red';
-            errorDiv.style.padding = '20px';
             errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
-            resultsDiv.appendChild(errorDiv);
+            movieDiv.appendChild(errorDiv);
             console.error(err);
         });
 });
@@ -175,15 +170,12 @@ document.getElementById('TopMovies').addEventListener('click', function() {
         })
         // error handling
         .catch(err => {
-            const resultsDiv = document.getElementById('searchResultsMovie');
-            const TvDiv = document.getElementById('searchResultsTV');
-            TvDiv.innerHTML = '';
-            resultsDiv.innerHTML = '';
+                 const movieDiv = document.getElementById('ResultContainer');
+                 movieDiv.style.display = 'flex';
+            movieDiv.innerHTML = '';
             const errorDiv = document.createElement('div');
-            errorDiv.style.color = 'red';
-            errorDiv.style.padding = '20px';
             errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
-            resultsDiv.appendChild(errorDiv);
+            movieDiv.appendChild(errorDiv);
             console.error(err);
         });
 });
