@@ -33,7 +33,7 @@
             throw new Error(`HTTP error! status: ${res.status}`);
         }
     })
-    // make results appear depending on data received
+    // make results appear
     .then(data => {     
        const container = document.getElementById('ResultContainer');
         container.style.display = 'flex';
@@ -78,25 +78,15 @@
         const resultsDiv = document.getElementById('ResultContainer');
         resultsDiv.innerHTML = '';
         const errorDiv = document.createElement('div');
-      resultsDiv.style.display = 'flex';
-        if (err.message.includes('404' )) {
-            errorDiv.textContent = '404 Error: Resource not found';
-        } else if (err.message.includes('HTTP error')) {
-            errorDiv.textContent = `Error: ${err.message}`;
-            
-        }else if (err.message.includes('failed')) {
-            errorDiv.textContent = `Error: fetch failed - ${err.message}`;
-        } 
-        else {
-            errorDiv.textContent = 'Incorrect input or Network error: Unable to fetch data. Please check your connection and try again.';
-        }
-         
+        resultsDiv.style.display = 'flex';
+        errorDiv.textContent = 'Incorrect input or Network error: Unable to fetch data. Please check your connection and try again.';
+              
         resultsDiv.appendChild(errorDiv);
         console.error(err);
     });
 });
 }
-// define the searchTV function. It is similar to searchMovie but for TV shows
+// define the searchPerson function. It is similar to searchMovie but for TV shows
 export function searchPerson() {
     const options = {
   method: 'GET',
@@ -117,7 +107,7 @@ fetch('https://api.themoviedb.org/3/authentication', options).then( res => {
             throw new Error(`HTTP error! status: ${res.status}`);
         }
     })
-// fetch TV data based on user input
+// search for person data based on user input
 document.querySelector('form').addEventListener('submit', function(event) {
   event.preventDefault();
   const query = this.querySelector('input[type="text"]').value; 
@@ -167,18 +157,8 @@ document.querySelector('form').addEventListener('submit', function(event) {
         const resultsDiv = document.getElementById('searchResultsPeople');
         resultsDiv.innerHTML = '';
         const errorDiv = document.createElement('div');
-        if (err.message.includes('404')) {
-            errorDiv.textContent = '404 Error: Resource not found';
-        } else if (err.message.includes('HTTP error')) {
-            errorDiv.textContent = `Error: ${err.message}`;
-            
-        }else if (err.message.includes('fetch failed')) {
-            errorDiv.textContent = `Fetch Error: ${err.message}`;
-            
-        }
-         else {
             errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
-        }
+
         resultsDiv.style.display = 'flex';
         resultsDiv.appendChild(errorDiv);
         console.error(err);
@@ -186,7 +166,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
 });
 }
 
-// define the searchPerson function. It is also similar to the other two functions
+// define the searchTV function. It is also similar to the other two functions
 export function searchTV() {
     const options = {
   method: 'GET',
@@ -204,14 +184,11 @@ fetch('https://api.themoviedb.org/3/authentication', options)
 document.querySelector('form').addEventListener('submit', function(event) {
   event.preventDefault();
   const query = this.querySelector('input[type="text"]').value;
-    fetch(`https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(query)}`, options).then( res => {
-    
+    fetch(`https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(query)}`, options).then( res => {    
     if (res.status < 300 && res.status >=200) {
             return res.json();
         }
         else {
-            const resultsDiv = document.getElementById('searchResultsMovie');
-            resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
             throw new Error(`HTTP error! status: ${res.status}`);
         }
     })
@@ -248,15 +225,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
         const resultsDiv = document.getElementById('searchResultsTV');
         resultsDiv.innerHTML = '';
         const errorDiv = document.createElement('div');
-        errorDiv.style.color = 'red';
-        errorDiv.style.padding = '20px';
-        if (err.message.includes('404')) {
-            errorDiv.textContent = '404 Error: Resource not found';
-        } else if (err.message.includes('HTTP error')) {
-            errorDiv.textContent = `Error: ${err.message}`;
-        } else {
             errorDiv.textContent = 'Network error: Unable to fetch data. Please check your connection and try again.';
-        }
         resultsDiv.style.display = 'flex';
         resultsDiv.appendChild(errorDiv);
         console.error(err);
