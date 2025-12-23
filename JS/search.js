@@ -8,16 +8,13 @@
      }
     };
                 const resultsDiv = document.getElementById('ResultContainer');
-    // test the authentication first
+    // test the authentication
  fetch('https://api.themoviedb.org/3/authentication', options).then( res => {
     
     if (res.status < 300 && res.status >=200) {
             return res.json();
         }
         else {
-            const resultsDiv = document.getElementById('ResultContainer');
-            resultsDiv.display = 'flex';
-            resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
             throw new Error(`HTTP error! status: ${res.status}`);
         }
     })
@@ -32,9 +29,7 @@
             return res.json();
         }
         else {
-            const resultsDiv = document.getElementById('ResultContainer');
-              resultsDiv.style.display = 'flex';
-            resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
+
             throw new Error(`HTTP error! status: ${res.status}`);
         }
     })
@@ -102,7 +97,7 @@
 });
 }
 // define the searchTV function. It is similar to searchMovie but for TV shows
-export function searchTV() {
+export function searchPerson() {
     const options = {
   method: 'GET',
   headers: {
@@ -110,7 +105,7 @@ export function searchTV() {
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzJhYmYxYTJmZmY1MTNhNWZlYmEwZGU1ZjdhZGRlMyIsIm5iZiI6MTc2NTM2NDE3NS4xNjQsInN1YiI6IjY5Mzk1MWNmNDU5NjE4NTBiNDdmY2JjMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rJHrV_LEJJ8iY3SYJYjjQbvpUcJr2RRYHRutP3JaxJA'
   }
 };
-// test the authentication first
+// test the authentication
 fetch('https://api.themoviedb.org/3/authentication', options).then( res => {
     
     if (res.status < 300 && res.status >=200) {
@@ -133,8 +128,6 @@ document.querySelector('form').addEventListener('submit', function(event) {
             return res.json();
         }
         else {
-            const resultsDiv = document.getElementById('ResultContainer');
-            resultsDiv.innerHTML = 'Network error: Unable to fetch data. Please check your connection and try again.';
             throw new Error(`HTTP error! status: ${res.status}`);
         }
     })
@@ -157,7 +150,11 @@ document.querySelector('form').addEventListener('submit', function(event) {
             movieDiv.classList.add('result-card');
             name.textContent = `${person.name}`;
             department.textContent = `Department: ${person.known_for_department}`;
-            knownFor.textContent = `Known for: ${person.known_for.map(work => work.title || work.name).join(', ')}`;
+            knownFor.textContent = `Known for: ${person.known_for.map(work => {
+                const title = work.title || work.name;
+                const type = work.media_type === 'movie' ? '(Film)' : work.media_type === 'tv' ? '(TV Show)' : '';
+                return `${title} ${type}`;
+            }).join(', ')}`;
             movieDiv.appendChild(img);
             movieDiv.appendChild(name);
             movieDiv.appendChild(department);
@@ -190,7 +187,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
 }
 
 // define the searchPerson function. It is also similar to the other two functions
-export function searchPerson() {
+export function searchTV() {
     const options = {
   method: 'GET',
   headers: {
@@ -198,7 +195,7 @@ export function searchPerson() {
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNzJhYmYxYTJmZmY1MTNhNWZlYmEwZGU1ZjdhZGRlMyIsIm5iZiI6MTc2NTM2NDE3NS4xNjQsInN1YiI6IjY5Mzk1MWNmNDU5NjE4NTBiNDdmY2JjMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rJHrV_LEJJ8iY3SYJYjjQbvpUcJr2RRYHRutP3JaxJA'
   }
 };
-// test the authentication first
+// test the authentication
 fetch('https://api.themoviedb.org/3/authentication', options)
   .then(res => res.json())
     .then(res => console.log(res))
